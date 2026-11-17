@@ -8,13 +8,28 @@ importers:
 
   .:
     dependencies:
-      '@videojs/html':
+      '@videojs/react':
         specifier: 10.5.0
-        version: 10.5.0(react@19.3.1)
+        version: 10.5.0(@videojs/element@10.5.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      react:
+        specifier: ^19.3.1
+        version: 19.3.1
+      react-dom:
+        specifier: ^19.3.1
+        version: 19.3.1(react@19.3.1)
     devDependencies:
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
+      '@types/react':
+        specifier: ^19.3.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.3.0
+        version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: ^6.3.0
+        version: 6.3.0(vite@8.3.8(@types/node@26.6.6))
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
@@ -166,6 +181,14 @@ packages:
   '@types/node@26.6.6':
     resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
+  '@types/react-dom@19.3.0':
+    resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
+    peerDependencies:
+      '@types/react': ^19.3.0
+
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
+
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
     engines: {node: '>=16.20.0'}
@@ -292,8 +315,14 @@ packages:
   '@videojs/element@10.5.0':
     resolution: {integrity: sha512-WS7j3Ym3FcmfuruGV6wssV/HduNWHm43j/tbB3DpSxDL9JgtCHAMrirDEOqdmqlj4/pAUjIyzuJ1xGH02ChU5A==}
 
-  '@videojs/html@10.5.0':
-    resolution: {integrity: sha512-rWFyDrXWRUanAwSJDcu2rwgpQ7F0kshMiB8swkfsG8JMA+CRLS+WQ5w9GpV9zxgat4LEToprFzi1nuGoqgTIZg==}
+  '@videojs/media@10.5.0':
+    resolution: {integrity: sha512-Yls10cLVOpIjBrlBFr7iaLaKg49MzSwu4beJaQZwP2WJrSmrLiR1ivnLFj6YwHlPVg/UJtQUz6fpUB/AkSpZ/g==}
+
+  '@videojs/native-hls-video@10.5.0':
+    resolution: {integrity: sha512-m+Q/FKdlVlo+skdIbnXiY92vBKI9sY/A3wgunhUnVd/Z2BPXdaSFJ6LnGnf9D44TqLU4Cs7J579QWy2AkEoCeA==}
+
+  '@videojs/react@10.5.0':
+    resolution: {integrity: sha512-Dy2Uerozb2SRb3E92HOhqrYlJUEOAIKMSSgEnRPczIOu8uT4N2agFuAY7pq9fqMCsa+xdlyDlhi1tjpdKkTCXA==}
     peerDependencies:
       '@videojs/cloudflare-video': 10.5.0
       '@videojs/dailymotion-video': 10.5.0
@@ -314,6 +343,8 @@ packages:
       '@videojs/vimeo-video': 10.5.0
       '@videojs/wistia-video': 10.5.0
       '@videojs/youtube-video': 10.5.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
       '@videojs/cloudflare-video':
         optional: true
@@ -354,12 +385,6 @@ packages:
       '@videojs/youtube-video':
         optional: true
 
-  '@videojs/media@10.5.0':
-    resolution: {integrity: sha512-Yls10cLVOpIjBrlBFr7iaLaKg49MzSwu4beJaQZwP2WJrSmrLiR1ivnLFj6YwHlPVg/UJtQUz6fpUB/AkSpZ/g==}
-
-  '@videojs/native-hls-video@10.5.0':
-    resolution: {integrity: sha512-m+Q/FKdlVlo+skdIbnXiY92vBKI9sY/A3wgunhUnVd/Z2BPXdaSFJ6LnGnf9D44TqLU4Cs7J579QWy2AkEoCeA==}
-
   '@videojs/spf@10.5.0':
     resolution: {integrity: sha512-wKnM0jyvqKHC/BrYhGLRv+MrrcNPuwZ4tgcPFDvFshsAHMDhLIUw5iWCmt2kLxJXFIVR2CvpzM4GQ5JZXMEXEA==}
 
@@ -376,6 +401,25 @@ packages:
 
   '@videojs/utils@10.5.0':
     resolution: {integrity: sha512-hW/8JqUxjVfYlZskkTm73uOX4vtJKHABSp3Xtcrp59MqPU81mIISRkRUqKt1keUUJRHk9ZKhmN/o66lYbuXH9A==}
+
+  '@vitejs/plugin-react@6.3.0':
+    resolution: {integrity: sha512-H9E955aVvD2F4zNHCw4eIZbIfF6xKldlh7MNu+hSU7xwQzh65lI/N+CJWqmfhi0PEjDXIt/H7T7J/4wU63KJiw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0 || ^0.3.0
+      babel-plugin-react-compiler: ^1.0.0
+      oxc-transform-react: '>=0.152.0 <0.157.0'
+      vite: ^8.0.0
+    peerDependenciesMeta:
+      '@rolldown/plugin-babel':
+        optional: true
+      babel-plugin-react-compiler:
+        optional: true
+      oxc-transform-react:
+        optional: true
+
+  csstype@3.2.4:
+    resolution: {integrity: sha512-PoKaoPzQapnEoqUSnHx1u6W6ku8CVEgKsnpmmzU3m1nwkidpPBQ8V/Zq2+bWNrsOKoKLwTGdbx6xF7BXP1zLVQ==}
 
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
@@ -486,6 +530,11 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
 
+  react-dom@19.3.1:
+    resolution: {integrity: sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ==}
+    peerDependencies:
+      react: ^19.3.1
+
   react@19.3.1:
     resolution: {integrity: sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw==}
     engines: {node: '>=0.10.0'}
@@ -494,6 +543,9 @@ packages:
     resolution: {integrity: sha512-QIiV1J9d0pzN4jeeTH4sjPy0AZ6cAy2cG0ExeoE1+U8Rvj+hR3gYkokx0YbeUNGlZqiQJJ2utcETe0oKXwzsuA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
+
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   signal-polyfill@0.2.3:
     resolution: {integrity: sha512-9lnybFqkhtuH5xJ0IoRMs+k0HhiNEHAqcedRL2gKGI9bLyPWqlhrNSXTi8PRTwx5XiMktQh954gR5q3dBimwXA==}
@@ -581,15 +633,18 @@ snapshots:
       tslib: 2.9.1
     optional: true
 
-  '@lit-labs/ssr-dom-shim@1.6.0': {}
+  '@lit-labs/ssr-dom-shim@1.6.0':
+    optional: true
 
   '@lit/context@1.1.6':
     dependencies:
       '@lit/reactive-element': 2.1.2
+    optional: true
 
   '@lit/reactive-element@2.1.2':
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.6.0
+    optional: true
 
   '@napi-rs/wasm-runtime@1.2.6(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2)':
     dependencies:
@@ -669,6 +724,14 @@ snapshots:
     dependencies:
       undici-types: 8.9.0
 
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
+    dependencies:
+      '@types/react': 19.3.0
+
+  '@types/react@19.3.0':
+    dependencies:
+      csstype: 3.2.4
+
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
 
@@ -743,18 +806,7 @@ snapshots:
     dependencies:
       '@lit/context': 1.1.6
       '@videojs/utils': 10.5.0
-
-  '@videojs/html@10.5.0(react@19.3.1)':
-    dependencies:
-      '@videojs/core': 10.5.0(@videojs/element@10.5.0)(react@19.3.1)
-      '@videojs/element': 10.5.0
-      '@videojs/media': 10.5.0
-      '@videojs/native-hls-video': 10.5.0
-      '@videojs/spf': 10.5.0
-      '@videojs/store': 10.5.0(@videojs/element@10.5.0)(react@19.3.1)
-      '@videojs/utils': 10.5.0
-    transitivePeerDependencies:
-      - react
+    optional: true
 
   '@videojs/media@10.5.0':
     dependencies:
@@ -765,6 +817,20 @@ snapshots:
       '@videojs/media': 10.5.0
       '@videojs/spf': 10.5.0
       '@videojs/utils': 10.5.0
+
+  '@videojs/react@10.5.0(@videojs/element@10.5.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@videojs/core': 10.5.0(@videojs/element@10.5.0)(react@19.3.1)
+      '@videojs/media': 10.5.0
+      '@videojs/native-hls-video': 10.5.0
+      '@videojs/spf': 10.5.0
+      '@videojs/store': 10.5.0(@videojs/element@10.5.0)(react@19.3.1)
+      '@videojs/utils': 10.5.0
+      react: 19.3.1
+      react-compiler-runtime: 1.0.0(react@19.3.1)
+      react-dom: 19.3.1(react@19.3.1)
+    transitivePeerDependencies:
+      - '@videojs/element'
 
   '@videojs/spf@10.5.0':
     dependencies:
@@ -783,6 +849,13 @@ snapshots:
       react: 19.3.1
 
   '@videojs/utils@10.5.0': {}
+
+  '@vitejs/plugin-react@6.3.0(vite@8.3.8(@types/node@26.6.6))':
+    dependencies:
+      '@rolldown/pluginutils': 1.1.1
+      vite: 8.3.8(@types/node@26.6.6)
+
+  csstype@3.2.4: {}
 
   detect-libc@2.1.2: {}
 
@@ -858,6 +931,11 @@ snapshots:
     dependencies:
       react: 19.3.1
 
+  react-dom@19.3.1(react@19.3.1):
+    dependencies:
+      react: 19.3.1
+      scheduler: 0.28.0
+
   react@19.3.1: {}
 
   rolldown@1.2.19:
@@ -881,6 +959,8 @@ snapshots:
       '@rolldown/binding-wasm32-wasi': 1.2.19
       '@rolldown/binding-win32-arm64-msvc': 1.2.19
       '@rolldown/binding-win32-x64-msvc': 1.2.19
+
+  scheduler@0.28.0: {}
 
   signal-polyfill@0.2.3: {}
 

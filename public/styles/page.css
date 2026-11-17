@@ -35,12 +35,7 @@ code {
   font-size: 0.9em;
 }
 
-video-player,
-media-container {
-  display: block;
-}
-
-media-container {
+.media-container {
   overflow: hidden;
   border-radius: 14px;
   background: #000;
@@ -81,34 +76,34 @@ input.flat {
 
 /* ── Lab ────────────────────────────────────────────────────────────────── */
 
-spatial-lab {
+.spatial-lab {
   display: grid;
   gap: 16px;
   margin-top: 24px;
 }
 
-spatial-lab section {
+.spatial-lab section {
   padding: 14px 16px;
   background: #181a1f;
   border: 1px solid #2a2d34;
   border-radius: 12px;
 }
 
-spatial-lab .switches {
+.spatial-lab .switches {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 20px;
   align-items: center;
 }
 
-spatial-lab label {
+.spatial-lab label {
   display: inline-flex;
   gap: 6px;
   align-items: center;
 }
 
-spatial-lab button,
-spatial-lab select {
+.spatial-lab button,
+.spatial-lab select {
   padding: 5px 12px;
   font: inherit;
   color: inherit;
@@ -117,36 +112,30 @@ spatial-lab select {
   border-radius: 8px;
 }
 
-spatial-lab .hint {
-  margin: 8px 0 0;
-  font-size: 0.85rem;
-  color: #8b8f98;
-}
-
-spatial-lab table {
+.spatial-lab table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
 }
 
-spatial-lab td {
+.spatial-lab td {
   padding: 3px 8px 3px 0;
   border-top: 1px solid #23252b;
 }
 
-spatial-lab td:first-child {
+.spatial-lab td:first-child {
   width: 1.5em;
 }
 
-spatial-lab [data-ok='true'] {
+.spatial-lab [data-ok='true'] {
   color: #5fd38d;
 }
 
-spatial-lab [data-ok='false'] {
+.spatial-lab [data-ok='false'] {
   color: #f0796b;
 }
 
-spatial-lab pre {
+.spatial-lab pre {
   max-height: 260px;
   margin: 0;
   overflow: auto;

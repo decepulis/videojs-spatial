@@ -1,4 +1,6 @@
 import { extname } from 'node:path';
+
+import react from '@vitejs/plugin-react';
 import { defineConfig, type Connect, type Plugin } from 'vite';
 
 // Safari wants real media types for <model> sources and HDR images.
@@ -24,5 +26,14 @@ function mediaTypes(): Plugin {
 export default defineConfig({
   // Relative URLs so the build works from any path (GitHub Pages, a subfolder, …).
   base: './',
-  plugins: [mediaTypes()],
+  plugins: [react(), mediaTypes()],
+  build: {
+    rolldownOptions: {
+      onLog(level, log, handler) {
+        // react-compiler-runtime (a @videojs/react dependency) opens with "use no memo", which bundling drops harmlessly.
+        if (log.code === 'MODULE_LEVEL_DIRECTIVE' && log.id?.includes('react-compiler-runtime')) return;
+        handler(level, log);
+      },
+    },
+  },
 });

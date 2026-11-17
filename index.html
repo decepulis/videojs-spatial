@@ -8,46 +8,9 @@
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/spatial.css" />
     <link rel="stylesheet" href="./styles/page.css" />
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </head>
   <body>
-    <main>
-      <header>
-        <h1>Video.js × spatial CSS</h1>
-        <p>
-          A player whose controls are 3D models in a <code>spatial: portal</code>. Needs Safari on visionOS 27.3 with
-          <em>Settings › Apps › Safari › Advanced › Feature flags › CSS Portals</em> turned on. Everywhere else you get flat
-          controls.
-        </p>
-      </header>
-
-      <video-player>
-        <media-container>
-          <video
-            src="https://stream.mux.com/BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM/highest.mp4"
-            crossorigin="anonymous"
-            playsinline
-            preload="metadata"
-          ></video>
-
-          <spatial-stage>
-            <spatial-play-button></spatial-play-button>
-            <spatial-time-slider></spatial-time-slider>
-          </spatial-stage>
-
-          <p class="readout">
-            <media-time type="current"></media-time>
-            <span aria-hidden="true">/</span>
-            <media-time type="duration"></media-time>
-          </p>
-
-          <media-hotkey keys="Space" action="togglePaused"></media-hotkey>
-          <media-hotkey keys="ArrowLeft" action="seekStep" value="-5"></media-hotkey>
-          <media-hotkey keys="ArrowRight" action="seekStep" value="5"></media-hotkey>
-        </media-container>
-      </video-player>
-
-      <spatial-lab></spatial-lab>
-    </main>
+    <div id="root"></div>
   </body>
 </html>

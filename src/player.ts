@@ -1,7 +1,4 @@
-import { createPlayer } from '@videojs/html';
-import { videoFeatures } from '@videojs/html/video';
+import { createPlayer } from '@videojs/react';
+import { videoFeatures } from '@videojs/react/video';
 
-export const { PlayerElement, PlayerController } = createPlayer({ features: videoFeatures });
-
-// Registered here, before any control is imported, so controls find their player when they upgrade.
-customElements.define('video-player', PlayerElement);
+export const { Player, usePlayer } = createPlayer({ features: videoFeatures });

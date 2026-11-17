@@ -6,66 +6,50 @@
  * layout.css, which models/build.py writes alongside the models themselves.
  *
  * State arrives from the components as attributes and custom properties set
- * directly on each <model>, so rules never depend on where a model sits in the
- * DOM (see "Hoist models" in the lab).
+ * directly on each <model>. Every model is a direct child of the portal.
  */
 
 /* ── The portal ─────────────────────────────────────────────────────────── */
 
-spatial-stage {
+.spatial-stage {
   display: block;
   background-color: #08090c; /* the backdrop seen through the portal */
 }
 
 @supports (spatial: portal) {
-  spatial-stage {
+  .spatial-stage {
     spatial: portal;
     /* Same proportions as the tray, so `portal-transform: auto` fits it edge to edge. */
     aspect-ratio: calc(60 + 2) / calc(9 + 2);
   }
-
-  /* Wrappers must not come between the portal and its models. */
-  spatial-play-button,
-  spatial-time-slider {
-    display: contents;
-  }
-
-  .flat {
-    display: none;
-  }
 }
 
-@supports not (spatial: portal) {
-  spatial-stage {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 12px;
-  }
+/* Without portal support, src/ renders a flat button and range instead of models. */
+.spatial-stage[data-flat] {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+}
 
-  spatial-stage model {
-    display: none;
-  }
-
-  spatial-time-slider {
-    flex: 1;
-  }
+.spatial-stage[data-flat] input.flat {
+  flex: 1;
 }
 
 /* Lab switches. Each is one declaration, so a broken one is easy to spot. */
-spatial-stage[data-orbit] {
+.spatial-stage[data-orbit] {
   portal-action: orbit;
 }
 
-spatial-stage[data-fit='none'] {
+.spatial-stage[data-fit='none'] {
   portal-transform: none;
 }
 
-spatial-stage[data-fit='scale'] {
+.spatial-stage[data-fit='scale'] {
   portal-transform: scale(0.3);
 }
 
-spatial-stage[data-absolute] model {
+.spatial-stage[data-absolute] model {
   position: spatial-absolute;
 }
 
@@ -83,16 +67,16 @@ spatial-stage[data-absolute] model {
   src: url('../env/neon.hdr');
 }
 
-spatial-stage[data-env='studio'] {
+.spatial-stage[data-env='studio'] {
   environment-map: 'studio';
 }
 
-spatial-stage[data-env='neon'] {
+.spatial-stage[data-env='neon'] {
   environment-map: 'neon';
 }
 
 /* 'video' is defined at runtime by src/ambient.ts from the frame on screen. */
-spatial-stage[data-env='video'] {
+.spatial-stage[data-env='video'] {
   environment-map: 'video';
 }
 
@@ -140,12 +124,12 @@ model[data-part='pause'][data-active] {
  * Lab: attach the glyphs to the `glyph` empty inside puck.usdz instead of
  * repeating the puck's position. They then inherit its squash for free.
  */
-spatial-stage[data-anchor] model[data-part='puck'] {
+.spatial-stage[data-anchor] model[data-part='puck'] {
   anchor-name: --puck;
 }
 
-spatial-stage[data-anchor] model[data-part='play'],
-spatial-stage[data-anchor] model[data-part='pause'] {
+.spatial-stage[data-anchor] model[data-part='play'],
+.spatial-stage[data-anchor] model[data-part='pause'] {
   position-anchor: --puck#glyph;
   position-context: anchor;
   transform: translateZ(calc(var(--sink) * var(--glyph-height) * -1)) scale(var(--size));
@@ -190,7 +174,7 @@ model[data-part='thumb'][data-gliding] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  spatial-stage model {
+  .spatial-stage model {
     transition-duration: 0.01ms !important;
   }
 }
