@@ -1,0 +1,156 @@
+:root {
+  color-scheme: dark;
+  font: 16px/1.5 system-ui, sans-serif;
+  background: #101114;
+  color: #e8e9ec;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+header p {
+  margin: 0 0 20px;
+  color: #a3a6ad;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+video-player,
+media-container {
+  display: block;
+}
+
+media-container {
+  overflow: hidden;
+  border-radius: 14px;
+  background: #000;
+}
+
+video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.readout {
+  margin: 0;
+  padding: 6px 12px 10px;
+  font-variant-numeric: tabular-nums;
+  color: #a3a6ad;
+  background: #08090c;
+}
+
+/* Flat controls, shown where portals are not supported. */
+.flat {
+  font: inherit;
+}
+
+button.flat {
+  min-width: 5em;
+  padding: 6px 14px;
+  color: inherit;
+  background: #23252b;
+  border: 1px solid #3a3d45;
+  border-radius: 999px;
+}
+
+input.flat {
+  width: 100%;
+  accent-color: #ff5c14;
+}
+
+/* ── Lab ────────────────────────────────────────────────────────────────── */
+
+spatial-lab {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+spatial-lab section {
+  padding: 14px 16px;
+  background: #181a1f;
+  border: 1px solid #2a2d34;
+  border-radius: 12px;
+}
+
+spatial-lab .switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  align-items: center;
+}
+
+spatial-lab label {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+spatial-lab button,
+spatial-lab select {
+  padding: 5px 12px;
+  font: inherit;
+  color: inherit;
+  background: #23252b;
+  border: 1px solid #3a3d45;
+  border-radius: 8px;
+}
+
+spatial-lab .hint {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: #8b8f98;
+}
+
+spatial-lab table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+spatial-lab td {
+  padding: 3px 8px 3px 0;
+  border-top: 1px solid #23252b;
+}
+
+spatial-lab td:first-child {
+  width: 1.5em;
+}
+
+spatial-lab [data-ok='true'] {
+  color: #5fd38d;
+}
+
+spatial-lab [data-ok='false'] {
+  color: #f0796b;
+}
+
+spatial-lab pre {
+  max-height: 260px;
+  margin: 0;
+  overflow: auto;
+  font: 12px/1.5 ui-monospace, monospace;
+  white-space: pre-wrap;
+  color: #b9bcc4;
+}

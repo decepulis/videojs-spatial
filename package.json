@@ -1,0 +1,19 @@
+{
+  "name": "videojs-spatial",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "models": "python3 models/build.py"
+  },
+  "dependencies": {
+    "@videojs/html": "10.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

@@ -1,0 +1,196 @@
+/*
+ * The spatial skin. Everything 3D lives here; nothing in src/ sets a transform.
+ *
+ * Coordinates: the tray's centre is the world origin, +x right, +z towards the
+ * viewer, and z = 0 is the face of the tray's back plate. Sizes come from
+ * layout.css, which models/build.py writes alongside the models themselves.
+ *
+ * State arrives from the components as attributes and custom properties set
+ * directly on each <model>, so rules never depend on where a model sits in the
+ * DOM (see "Hoist models" in the lab).
+ */
+
+/* ── The portal ─────────────────────────────────────────────────────────── */
+
+spatial-stage {
+  display: block;
+  background-color: #08090c; /* the backdrop seen through the portal */
+}
+
+@supports (spatial: portal) {
+  spatial-stage {
+    spatial: portal;
+    /* Same proportions as the tray, so `portal-transform: auto` fits it edge to edge. */
+    aspect-ratio: calc(60 + 2) / calc(9 + 2);
+  }
+
+  /* Wrappers must not come between the portal and its models. */
+  spatial-play-button,
+  spatial-time-slider {
+    display: contents;
+  }
+
+  .flat {
+    display: none;
+  }
+}
+
+@supports not (spatial: portal) {
+  spatial-stage {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+  }
+
+  spatial-stage model {
+    display: none;
+  }
+
+  spatial-time-slider {
+    flex: 1;
+  }
+}
+
+/* Lab switches. Each is one declaration, so a broken one is easy to spot. */
+spatial-stage[data-orbit] {
+  portal-action: orbit;
+}
+
+spatial-stage[data-fit='none'] {
+  portal-transform: none;
+}
+
+spatial-stage[data-fit='scale'] {
+  portal-transform: scale(0.3);
+}
+
+spatial-stage[data-absolute] model {
+  position: spatial-absolute;
+}
+
+/* ── Lighting ───────────────────────────────────────────────────────────── */
+
+@environment-map {
+  name: 'studio';
+  format: equirectangular;
+  src: url('../env/studio.hdr');
+}
+
+@environment-map {
+  name: 'neon';
+  format: equirectangular;
+  src: url('../env/neon.hdr');
+}
+
+spatial-stage[data-env='studio'] {
+  environment-map: 'studio';
+}
+
+spatial-stage[data-env='neon'] {
+  environment-map: 'neon';
+}
+
+/* 'video' is defined at runtime by src/ambient.ts from the frame on screen. */
+spatial-stage[data-env='video'] {
+  environment-map: 'video';
+}
+
+/* ── Play button ────────────────────────────────────────────────────────── */
+
+/*
+ * --press: 0 → 1 while the button is held. The puck squashes towards the tray
+ * and the glyphs ride its face down.
+ */
+model[data-part='puck'],
+model[data-part='play'],
+model[data-part='pause'] {
+  --squash: calc(1 - var(--press, 0) * 0.45);
+  transition: transform 140ms cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+model[data-part='puck'] {
+  transform: translate3d(var(--puck-x), 0, 0) scale3d(1, 1, var(--squash));
+}
+
+/*
+ * Two glyphs share the puck. The active one stands on its face; the other
+ * shrinks and sinks just below the surface, out of sight.
+ */
+model[data-part='play'],
+model[data-part='pause'] {
+  --sink: 1.05;
+  --size: 0.6;
+  transform: translate3d(
+      var(--puck-x),
+      0,
+      calc(var(--puck-height) * var(--squash) - var(--sink) * var(--glyph-height))
+    )
+    scale(var(--size));
+  transition-duration: 260ms;
+}
+
+model[data-part='play'][data-active],
+model[data-part='pause'][data-active] {
+  --sink: 0;
+  --size: 1;
+}
+
+/*
+ * Lab: attach the glyphs to the `glyph` empty inside puck.usdz instead of
+ * repeating the puck's position. They then inherit its squash for free.
+ */
+spatial-stage[data-anchor] model[data-part='puck'] {
+  anchor-name: --puck;
+}
+
+spatial-stage[data-anchor] model[data-part='play'],
+spatial-stage[data-anchor] model[data-part='pause'] {
+  position-anchor: --puck#glyph;
+  position-context: anchor;
+  transform: translateZ(calc(var(--sink) * var(--glyph-height) * -1)) scale(var(--size));
+}
+
+/* ── Timeline ───────────────────────────────────────────────────────────── */
+
+/*
+ * Tiles are the hit targets. The spec keeps pointer coordinates away from the
+ * page inside a portal, so position has to come from *which* model was hit.
+ * --i is the tile's index.
+ */
+model[data-part='tile'] {
+  --pitch: calc(var(--track-length) / var(--track-count));
+  transform: translate3d(calc(var(--track-start) + (var(--i) + 0.5) * var(--pitch)), 0, 0)
+    scale3d(1, 1, calc(1 - var(--press, 0) * 0.6));
+  transition: transform 120ms ease-out;
+}
+
+/* Bars: their origin is their left end, so scaleX() grows them rightwards. */
+model[data-part='buffer'],
+model[data-part='fill'] {
+  transform: translate3d(var(--track-start), 0, 0) scaleX(max(0.0001, var(--amount, 0)));
+  pointer-events: none;
+}
+
+model[data-part='thumb'] {
+  transform: translate3d(calc(var(--track-start) + var(--amount, 0) * var(--track-length)), 0, var(--tile-depth))
+    scale(calc(1 + var(--press, 0) * 0.25));
+}
+
+/* Seeks snap quickly; playback glides between the store's time updates. */
+model[data-part='buffer'],
+model[data-part='fill'],
+model[data-part='thumb'] {
+  transition: transform 160ms ease-out;
+}
+
+model[data-part='fill'][data-gliding],
+model[data-part='thumb'][data-gliding] {
+  transition: transform 280ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  spatial-stage model {
+    transition-duration: 0.01ms !important;
+  }
+}
